@@ -1,36 +1,17 @@
-from sklearn.preprocessing import LabelEncoder
-from imblearn.over_sampling import SMOTE
 import pandas as pd
 import numpy as np
 from data_preprocessing import data_preprocess
-from scipy import stats
-
-def remove_outliers(data,par):
-        z = np.abs(stats.zscore(data[par]))
-        a=np.where(z > 2)
-        for i in a[0]:
-            if i in data.index:
-                data.drop(index=i,inplace=True)
+from mlxtend.preprocessing import TransactionEncoder
 
 def feature_engineering():
-    le=LabelEncoder()
-    data = data_preprocess()
-    col = list(data.columns)
-    col.remove("SEX")
-    col.remove("MARRIAGE")
-    col.remove("default.payment.next.month")
-    for j in col: 
-        remove_outliers(data,j)
-
-    # print(data)
-    X=data.drop(columns="default.payment.next.month")
-    y=data['default.payment.next.month']
-    target = le.fit_transform(np.ravel(y))
-    sm = SMOTE()
-    X_upd, y_upd = sm.fit_resample(X, target.ravel())
-    data_new=X_upd
-    data_new['default.payment.next.month']=y_upd 
-    data_new.to_csv("default_prediction.csv",index=False)
-    return data
+        data = data_preprocess()
+        records = []
+        for i in range(0, data.shape[0]):
+                records.append([str(data.values[i,j]) for j in range(0, data.shape[1]) if data.values[i][j] is not np.nan])
+        te = TransactionEncoder()
+        te_data = te.fit(records).transform(records)
+        df = pd.DataFrame(te_data,columns=te.columns_)
+        df.to_csv("students_performance_prediction.csv",index=False)
+        return data
 
 feature_engineering()
