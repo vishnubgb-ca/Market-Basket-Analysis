@@ -11,7 +11,7 @@ def feature_engineering():
         te = TransactionEncoder()
         te_data = te.fit(records).transform(records)
         df = pd.DataFrame(te_data,columns=te.columns_)
-        df.to_csv("students_performance_prediction.csv",index=False)
+        df.to_csv("market_basket.csv",index=False)
         return data
 
 feature_engineering()
