@@ -7,9 +7,7 @@ def data_analysis():
     print (data.describe())
     print ("Rows     : " ,data.shape[0])
     print ("Columns  : \n" ,data.shape[1])
-    print ("Features : \n" ,data.columns.tolist())
-    print ("Missing values\n\n",data.isnull().any(),sep='')
-    print ("Unique values\n\n",data.nunique(),sep='')
+    print ("Total no of Unique Features : \n" ,df.stack().nunique())
     return data
 
 data_analysis()
