@@ -2,6 +2,11 @@ pipeline{
     agent any
 
     stages{
+        stage("Install Requirements"){
+            steps{
+                sh 'pip install mlxtend squarify'
+            }
+        }
         stage("Extract Data"){
             steps{
                 sh 'python3 loading_data.py'
@@ -31,7 +36,7 @@ pipeline{
     post{
        
         always {
-            archiveArtifacts artifacts: 'backorder_prediction.csv', onlyIfSuccessful: true
+            archiveArtifacts artifacts: 'market_basket.csv', onlyIfSuccessful: true
         }
             }
 }
