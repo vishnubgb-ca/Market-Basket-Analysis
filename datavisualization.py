@@ -1,27 +1,46 @@
 import matplotlib.pyplot as plt
 from data_preprocessing import data_preprocess
 import seaborn as sns
+import squarify
 
 def data_visualization():
 
     data = data_preprocess()
-    data['default.payment.next.month'].value_counts().plot.bar(figsize=(10,5),title='Classes Split for Dataset')
-    plt.xlabel('Classes')
-    plt.ylabel('Count')
+    value_counts = data.stack().value_counts()
+    
+    # Select the top 10 unique values and their counts
+    unique_values = value_counts.index[:10]  # Get the top 10 unique values
+    value_counts_top_10 = value_counts.values[:10]  # Get the counts for the top 10 unique values
+    
+    # Create a bar graph
+    plt.figure(figsize=(18,16))
+    plt.bar(unique_values, value_counts_top_10)
+    plt.xlabel("Products")
+    plt.ylabel("Counts")
+    plt.title("Top 10 Products")
+    plt.xticks(rotation=90)
     plt.show()
-    col=list(data.columns)
-    print(col)
-    for i in col:
-        #plt.figure(figsize=(14,12))
-        sns.boxplot(y=i,data=data)
-        plt.show()
-    # for i in col:
-    #     #plt.figure(figsize=(14,12))
-    #     sns.distplot(x=data[i])
-    #     plt.title(i)
-    # plt.show()
-    sns.heatmap(data.corr(), linewidth=1, annot=True,  cmap="coolwarm", fmt=".4f")
+
+    top15items = pd.DataFrame(data.stack().value_counts().head(15))
+    top15items = top20items.reset_index()
+    top15items.columns = ["Itemname","Frequency"]
+    labels = top20items["Itemname"]
+    sizes = top20items["Frequency"]
+    plt.figure(figsize=(15,13))
+    plt.pie(sizes,labels=labels)
     plt.show()
+    
+    top20items = pd.DataFrame(data.stack().value_counts().head(20))
+    top20items = top20items.reset_index()
+    top20items.columns = ["Itemname","Frequency"]
+    labels = top20items["Itemname"]
+    sizes = top20items["Frequency"]
+    fig = plt.figure(figsize=(16,10))
+    colors = sns.color_palette("Spectral",20)
+    squarify.plot(sizes, label=labels, color =  colors)
+    plt.title("Top 20 Products")
+    plt.show()
+    
     return data
 
 data_visualization()
