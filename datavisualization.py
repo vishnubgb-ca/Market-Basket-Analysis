@@ -23,10 +23,10 @@ def data_visualization():
     plt.show()
 
     top15items = pd.DataFrame(data.stack().value_counts().head(15))
-    top15items = top20items.reset_index()
+    top15items = top15items.reset_index()
     top15items.columns = ["Itemname","Frequency"]
-    labels = top20items["Itemname"]
-    sizes = top20items["Frequency"]
+    labels = top15items["Itemname"]
+    sizes = top15items["Frequency"]
     plt.figure(figsize=(15,13))
     plt.pie(sizes,labels=labels)
     plt.show()
