@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from data_preprocessing import data_preprocess
 import seaborn as sns
 import squarify
+import pandas as pd
 
 def data_visualization():
 
