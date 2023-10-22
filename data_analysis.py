@@ -7,7 +7,7 @@ def data_analysis():
     print (data.describe())
     print ("Rows     : " ,data.shape[0])
     print ("Columns  : \n" ,data.shape[1])
-    print ("Total no of Unique Features : \n" ,df.stack().nunique())
+    print ("Total no of Unique Features : \n" ,data.stack().nunique())
     return data
 
 data_analysis()
