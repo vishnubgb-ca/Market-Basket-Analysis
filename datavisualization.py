@@ -38,7 +38,7 @@ def data_visualization():
     top15items.columns = ["Itemname","Frequency"]
     labels = top15items["Itemname"]
     sizes = top15items["Frequency"]
-    fig = px.pie(names=labels, values=sizes, title='Pie Chart')
+    fig = px.pie(names=labels, values=sizes, title='Most frequently purchased items')
     fig.update_traces(textposition='inside', textinfo='percent+label')
     fig.update_layout(template='plotly_dark')
     fig.write_image(f"pie.jpg")
