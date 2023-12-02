@@ -40,6 +40,7 @@ def data_visualization():
     sizes = top15items["Frequency"]
     fig = px.pie(names=labels, values=sizes, title='Pie Chart')
     fig.update_traces(textposition='inside', textinfo='percent+label')
+    fig.update_layout(template='plotly_dark')
     fig.write_image(f"pie.jpg")
     # plt.figure(figsize=(15,13))
     # plt.pie(sizes,labels=labels)
