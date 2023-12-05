@@ -9,7 +9,6 @@ def data_visualization():
 
     data = data_preprocess()
     value_counts = data.stack().value_counts()
-    
     # Select the top 10 unique values and their counts
     unique_values = value_counts.index[:10]  # Get the top 10 unique values
     value_counts_top_10 = value_counts.values[:10]  # Get the counts for the top 10 unique values
